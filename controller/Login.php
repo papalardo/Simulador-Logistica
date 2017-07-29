@@ -39,7 +39,7 @@ if ( empty($_GET['acao']) ) { $_GET['acao'] = 'index'; }
 
 switch ( $_GET['acao'] ) {
     case 'index':
-        $tmpl = new Template('templates/login.php');
+        $tmpl = new Template('templates/login.php', '' , array('titulo' => 'Login'));
         echo $tmpl->render();
         include 'view/login/index.php';
         break;
