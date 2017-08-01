@@ -261,7 +261,7 @@ class Item {
 
 
 // Classe Perfil
-class Perfil {
+class Perfil_model {
 
 		private $table = 'tb_perfil';
 		private $id = 'id_per';
@@ -346,6 +346,16 @@ class RealizarCiclo {
 		}
 }
 
+
+
+
+
+
+
+### Classes abaixou sao para o sistema.
+
+
+
 /*
 
 Classe para templates - em TESTE
@@ -395,7 +405,20 @@ class Template {
 class Uri {
     public function segment($nr){
         $partes_url = explode('/', $_SERVER['REQUEST_URI'] );
-        return $partes_url[$nr];    
+        if (isset($partes_url[$nr])){
+            return $partes_url[$nr];
+        } else {
+            return FALSE;
+        }
         }
     }
+
+class Model {
+    public function set_model($nome_classe){
+    $classe = new $nome_classe;
+    return $classe;
+    }
+}
+
+
 ?>
