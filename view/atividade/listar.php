@@ -1,24 +1,26 @@
-<center>
-    <?php if (isset($_COOKIE['msg'])){ echo $_COOKIE['msg']; } DestroyCookie('msg') ?>
-</center>
-<table class="table">
+<table class="table table-striped">
     <thead>
-        <th>#</th>
-        <th>Descrição</th>
-        <th>Ação</th>
+        <tr>
+            <th style="width:120px;">Nome</th>
+            <th style="width:120px;">Tempo</th>
+            <th style="width:120px;">Pontuação</th>
+            <th style="width:120px;">Imagem</th>
+        </tr>
     </thead>
     <tbody>
-        <?php foreach ($listar as $dados): ?>
+    <?php foreach($listar as $r): ?>
         <tr>
+            <td><?php echo $r->nome_asm; ?></td>
+            <td><?php echo $r->tempo_asm; ?></td>
+            <td><?php echo $r->pontuacao_asm; ?></td>
+            <td><?php echo $r->imagem_asm; ?></td>
             <td>
-                <?= $dados->id_per ?>
+                <a href="..<?php echo $r->id_asm; ?>">Editar</a>
             </td>
             <td>
-                <?= $dados->desc_per ?>
+                <a onclick="javascript:return confirm('¿Tem certeza que quer apagar este registro?');" href="?c=atividade&a=Eliminar&id_asm=<?php echo $r->id_asm; ?>">Eliminar</a>
             </td>
-            <td><a href="<?= base_url('perfil/deletar/'.$dados->id_per) ?>">Deletar</a>
-                <a href="<?= base_url('perfil/editar/'.$dados->id_per) ?>">Editar</a></td>
         </tr>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
     </tbody>
 </table>

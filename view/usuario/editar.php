@@ -54,16 +54,9 @@
                 <div class="form-group">
                     <label for="name" class="control-label col-sm-4">Perfil</label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="perfil">
-                        <?php
-                        foreach($perfis as $perfil):
-                            if ($resultado->id_per == $perfil->id_per){
-                                echo "<option value='{$perfil->id_per}' selected>{$perfil->desc_per}</option>";
-                            } else {
-                                echo "<option value='{$perfil->id_per}'>{$perfil->desc_per}</option>";
-                            }
-                        endforeach; ?>
-                        </select>
+                        <?php 
+                        echo gerar_dropdown('perfil_model','id_per', 'desc_per', 'perfil')
+                        ?>
                     </div>
                 </div>
 

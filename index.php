@@ -13,7 +13,7 @@ require_once 'model/classes.php';
 
 
 if (SYSTEM_STATUS == 'em_contrucao'){ #So mostra erros se o sistema estiver em desenvolvimento
-    ini_set('display_errors', 'On');
+    ini_set('display_errors', 'on');
     error_reporting(E_ALL);
 }
 
@@ -42,8 +42,22 @@ if ( $uri->segment(3) == TRUE ){
 }
 
 include 'controller/'.$class.'.php';
-$obj = new $class;
-echo $obj->$function();
+
+if ( class_exists($class) ){ # Verifica se a classe existe
+    if ( method_exists($class, $function )) { # Verifica se o metodo existe
+    
+        
+    /* Inicia o metodo para gerar as views */
+    $obj = new $class;
+    echo $obj->$function();
+    
+    } else {
+        echo 'O metodo nao existe';
+    }
+} else {
+    echo 'A classe nao existe';
+}
+
 
 
 /*

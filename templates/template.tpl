@@ -40,7 +40,7 @@
 <ul id="dropdown1" class="dropdown-content">
 <li><a href="#"><i class="fa fa-user fa-fw"></i>Meu perfil</a>
 </li>
-<li><a href="login/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+<li><a href="<?= base_url('login/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 </li>
 </ul>
 	   <!--/. NAV TOP  -->
@@ -48,7 +48,7 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-home"></i> Home</a>
+                    <a href="#" class="waves-effect waves-dark"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Perfis<span class="fa arrow"></span></a>
@@ -78,6 +78,66 @@
                                     </li>
                                 </ul>
 
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Atividade<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?= base_url('atividade')?>">Novo</a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('atividade/listar')?>">Lista</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Curso <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?= base_url('curso')?>">Novo</a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('curso/listar')?>">Lista</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Ciclo Simulador <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?= base_url('cicloSimulador')?>">Novo</a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('cicloSimulador/listar')?>">Lista</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Simulador <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?= base_url('simulador')?>">Novo</a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('simulador/listar')?>">Lista</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Componente Curricular <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?= base_url('ComponenteCurricular')?>">Novo</a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('ComponenteCurricular/listar')?>">Lista</a>
                             </li>
                         </ul>
                     </li>

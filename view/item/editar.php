@@ -1,17 +1,36 @@
-<div class="col-md-6 col-md-offset-3">
-    <div class="panel panel-default">
-        <div class="panel-heading">Adicionar Perfil</div>
-        <div class="panel-body">
-            <form action="?pag=perfil&acao=atualizar&id=<?= $_GET['id']?>" method="post" class="form-horizontal">
-                <div class="form-group">
-                    <label for="name" class="control-label col-sm-4">Descricao</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="descricao" value="<?= $resultado->desc_per ?>">
-                        <center><?php if (isset($_COOKIE['msg'])){ echo $_COOKIE['msg']; } setcookie('msg', NULL, time()-1) ?></center>
-                    </div>
-                </div>
-                <button type="submit" name="acao" value="update" class="btn btn-default"> Atualizar </button>
-            </form>
-        </div>
+<h1 class="page-header">
+    <?php echo $it->id_ias != null ? $it->nome_ias : 'Novo Item'; ?>
+</h1>
+
+<ol class="breadcrumb">
+  <li><a href="?c=item">Item</a></li>
+  <li class="active"><?php echo $it->id_ias != null ? $it->nome_ias : 'Novo Item'; ?></li>
+</ol>
+
+<form id="frm-item" action="?c=item&a=Editar" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id_ias" value="<?php echo $it->id_ias; ?>" />
+
+    <div class="form-group">
+        <label>Nome</label>
+        <input type="text" name="nome_ias" value="<?php echo $it->nome_ias; ?>" class="form-control" placeholder="" data-validacion-tipo="requerido|min:100" />
     </div>
-</div>
+
+    <div class="form-group">
+        <label>Seguencia</label>
+        <input type="text" name="seguencia_ias" value="<?php echo $it->seguencia_ias; ?>" class="form-control" placeholder="" data-validacion-tipo="requerido|min:100" />
+    </div>
+
+    <hr />
+
+    <div class="text-right">
+        <button class="btn btn-success">Atualizar</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function(){
+        $("#frm-item").submit(function(){
+            return $(this).validate();
+        });
+    })
+</script>
