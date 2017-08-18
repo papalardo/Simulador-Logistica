@@ -85,11 +85,10 @@
         </center>
         </div>
         <div class="col-md-6">
-                <div id="item">Fazer Cotação</div>
-                <div id="item">Sinalizar Necessidade de Compra</div>
-                <div id="item">Realizar Compra</div>
-                <div id="item">Aprovar Compra</div>
-                <div id="item">Analizar Pedido Compra</div>
+            <?php foreach ($listar as $r): ?>
+            <div id="item"><?= $r->nome_ias; ?></div>
+        <?php endforeach; ?>
+            
         </div>
     </div>
 

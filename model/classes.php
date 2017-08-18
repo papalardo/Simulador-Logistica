@@ -4,9 +4,17 @@
 
 class Geral_Model {
     
+    public function __construct(){
+        $this->innerjoin = '';
+        $this->table = '';
+    }
     public function table($table){
         $this->table = $table;
         return $this;
+    }
+    public function innerjoin($table_join, $condicoes){
+        $this->innerjoin =  "INNER JOIN {$table_join} ON ( {$condicoes} )";
+	   return $this;
     }
     
     public function listarTodos() {
@@ -15,6 +23,14 @@ class Geral_Model {
 		$stmt->execute ();
 		return $stmt->fetchAll();
 	}
+    
+    public function procurarEm($coluna, $dado){
+        $sql = "SELECT * FROM $this->table $this->innerjoin WHERE $coluna = :dado";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':dado', $dado );
+		$stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
 
 
@@ -92,8 +108,7 @@ class Usuario_model {
 
     */
     
-    
-	public function procurar($id) {
+    public function procurar($id) {
 		$sql = "SELECT * FROM $this->table INNER JOIN tb_perfil ON ( $this->table.TB_PERFIL_id_per = tb_perfil.id_per) WHERE $this->id = :id";
 		$stmt = DB::prepare ( $sql );
 		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );

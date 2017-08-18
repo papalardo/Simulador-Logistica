@@ -2,6 +2,7 @@
 
 
 class Perfil {
+    
     public function __construct(){
         $this->perfil = new Perfil_model();
         $this->uri = new Uri();

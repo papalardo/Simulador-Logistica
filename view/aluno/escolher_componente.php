@@ -31,21 +31,13 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h3> Escolha o componente curricular </h3></div>
             <table class="table table-bordered">
-                <tr>
-                    <td><a href="<?= base_url('aluno/passo1') ?>"> Armazenamento de Controle de Estoque </a></td>
+                
+                <?php foreach ($listar as $r): ?>
+                <tr>    
+                <td><a href="<?= base_url('aluno/passo1/' . $r->id_ccr)?>"> <?= $r->nome_ccr ; ?> </a></td>
                 </tr>
-                <tr>
-                    <td>Estogem</td>
-                </tr>
-                <tr>
-                    <td> Transporte </td>
-                </tr>
-                <tr>
-                    <td> Custos</td>
-                </tr>
-                <tr>
-                    <td> Legislacao e Tributacao em logistica</td>
-                </tr>
+                <?php endforeach; ?>
+                
             </table>
         </div>
     </div>

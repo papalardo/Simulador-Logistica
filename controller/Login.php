@@ -1,33 +1,24 @@
 <?php
 
-/*
-
-Carrega o model com as classes
-
-*/
-
-
 class Login {
     
     public function __construct(){
-        
-require_once base_url('model/classes.php');
+        $this->login = new Usuario_model();
+        $this->uri = new Uri();
+        $this->template = new Template();
     }
     
+    
     public function  index(){
-        $tmpl = new Template('view/login/login_aluno.php', '' , array('titulo' => 'Login'));
-        echo $tmpl->render();
-        
+        echo $this->template->template('view/login/login_aluno.php')->render();
     }
     
     public function  admin(){
-        $tmpl = new Template('view/login/login_admin.php', '' , array('titulo' => 'Login'));
-        echo $tmpl->render();
+        echo $this->template->template('view/login/login_admin.php')->render();
     }
     
-    public function panel(){
-        $tmpl = new Template('templates/template.tpl','view/login/panel.php', array('titulo' => 'Painel usuario'));
-        echo $tmpl->render();
+    public function panel(){    
+        echo $this->template->template('templates/template.tpl')->view('view/login/panel.php')->render();
     }
     public function logout(){
         session_destroy(); #Destroi a sessão
@@ -36,7 +27,6 @@ require_once base_url('model/classes.php');
     }
     
     public function entrarAdmin(){
-        $login = new Usuario_model();
         /* resgata variáveis do formulário */
         $username = isset($_POST['username']) ? $_POST['username'] : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -52,13 +42,13 @@ require_once base_url('model/classes.php');
                 $username  = htmlspecialchars(strip_tags($_POST['username']));
                 $password = htmlspecialchars(strip_tags($_POST['password']));
 
-                $login->__set('username', $username);
-                $login->__set('password', $password); # __set da senha SEM HASH
+                $this->login->__set('username', $username);
+                $this->login->__set('password', $password); # __set da senha SEM HASH
                 #$login->__set('password', $passwordHash); # __set da senha COM HASH
 
-                $user = $login->procurarEm('username_usu', $login->__get('username')); #Verifica se o Username existe
+                $user = $this->login->procurarEm('username_usu', $this->login->__get('username')); #Verifica se o Username existe
                 if ($user) {
-                    if ($user->senha_usu == $login->__get('password')){ #Se usuario existe, compara a senha
+                    if ($user->senha_usu == $this->login->__get('password')){ #Se usuario existe, compara a senha
                             /* Se a senha for igual, seta as sessions. */
                             $_SESSION['logged_in'] = TRUE;
                             $_SESSION['user_id'] = $user->id_usu;
@@ -85,7 +75,6 @@ require_once base_url('model/classes.php');
     
     
     public function entrarAluno(){
-        $login = new Usuario_model();
         /* resgata variáveis do formulário */
         $username = isset($_POST['username']) ? $_POST['username'] : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -101,13 +90,13 @@ require_once base_url('model/classes.php');
                 $username  = htmlspecialchars(strip_tags($_POST['username']));
                 $password = htmlspecialchars(strip_tags($_POST['password']));
 
-                $login->__set('username', $username);
-                $login->__set('password', $password); # __set da senha SEM HASH
+                $this->login->__set('username', $username);
+                $this->login->__set('password', $password); # __set da senha SEM HASH
                 #$login->__set('password', $passwordHash); # __set da senha COM HASH
 
-                $user = $login->procurarEm('username_usu', $login->__get('username')); #Verifica se o Username existe
+                $user = $this->login->procurarEm('username_usu', $this->login->__get('username')); #Verifica se o Username existe
                 if ($user) {
-                    if ($user->senha_usu == $login->__get('password')){ #Se usuario existe, compara a senha
+                    if ($user->senha_usu == $this->login->__get('password')){ #Se usuario existe, compara a senha
                         /* Se a senha for igual, seta as sessions. */
                         $_SESSION['logged_in'] = TRUE;
                         $_SESSION['user_id'] = $user->id_usu;

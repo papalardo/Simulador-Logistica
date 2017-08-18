@@ -52,25 +52,16 @@
     <div class="card col-md-10 col-md-offset-1">
         <center>
         <h3> Atividades</h3>
-        <div class="col-md-4">
-                <a href="<?= base_url('aluno/passo3') ?>">
-                <h2>1</h2>
-                <img src="<?= base_url('assets/img/paper.jpg') ?>" style="width:150px">
-                </a>
+          <?php foreach ($listar as $r): ?>
+            <div class="col-md-3">
+            <a href="<?= base_url('aluno/passo3/' . $r->id_asm)?>">
+            <h2><?= $r->nome_asm ; ?></h2>
+            <img src="<?= base_url('assets/img/paper.jpg') ?>" style="width:150px">
+            </a>
         </div>
-            <div class="col-md-4">
-                <a href="<?= base_url('aluno/passo3') ?>">
-                <h2>2</h2>
-                <img src="<?= base_url('assets/img/paper.jpg') ?>" style="width:150px">
-                </a>
-             </div><div class="col-md-4">
-                <a href="<?= base_url('aluno/passo3') ?>">
-                <h2>3</h2>
-                <img src="<?= base_url('assets/img/paper.jpg') ?>" style="width:150px">
-                </a>
-         </div>
-            </center>
-        -
+        <?php endforeach; ?>
+        </center>
+        - 
     </div>
 
 

@@ -16,7 +16,7 @@ class Atividade {
 
     public function listar(){
         $data = array('titulo' => 'Painel usuario',
-                      'listar' => $this->atividade->Listar());
+                      'listar' => $this->atividade->listarTodos());
         echo $this->template->template('templates/template.tpl')->view('view/atividade/listar.php')->data( $data )->render();
     }
     
