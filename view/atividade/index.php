@@ -22,11 +22,11 @@
     </div>
     
     <div class="form-group">
-        <label>Ciclo Simulador</label>
+    <label>Ciclo Simulador</label>
       
-        <?php 
-        echo gerar_dropdown('item_model','id_asm', 'nome_asm', 'id_asm')
-        ?>
+    <?php 
+    echo gerar_dropdown('tb_cicl_simu','id_csm', 'descricao_csm', 'id_csm');
+    ?>
     </div>
     
     <hr />

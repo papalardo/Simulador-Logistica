@@ -35,39 +35,48 @@ class ComponenteCurricular {
     }
     
     public function novo(){
-        $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : ''; #Resgata variáveis do formulário
-        if (empty($descricao)){ #Verifica se os campos estão preenchidos
+        $nome = isset($_POST['nome']) ? $_POST['nome'] : ''; #Resgata variáveis do formulário
+        $cargaHoraria = isset($_POST['cargaHoraria']) ? $_POST['cargaHoraria'] : ''; #Resgata variáveis do formulário
+        
+        if (empty($nome)){ #Verifica se os campos estão preenchidos
             setcookie('msg','Dados em branco!'); #Se não tiver, armazena mensagem para mostrar.
             } else {
-                $descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
-                $this->componentes->__set('descricao', $descricao);
+                #$descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
+                
+                $this->componentes->__set('nome', $nome);
+                $this->componentes->__set('cargahoraria', $cargaHoraria);
+            
                 if ($this->componentes->adicionar()){ #Aqui faz o insert e seta um cookie para mostrar depois dependendo da situação (se deu certo ou não)
                     setcookie('msg','Novo perfil cadastrado!'); #Deu bom
                 } else {
                     setcookie('msg','Ocorreu algum erro..'); #Deu ruim
                 }
             }
-        setcookie('msg', $return);
         redirect('ComponenteCurricular/listar');
     }
     
     public function atualizar(){
-        $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : ''; #Resgata variáveis do formulário
+        
+        $nome = isset($_POST['nome']) ? $_POST['nome'] : ''; #Resgata variáveis do formulário
+        $cargaHoraria = isset($_POST['cargaHoraria']) ? $_POST['cargaHoraria'] : ''; #Resgata variáveis do formulário
+        
         $id = $this->uri->segment(4);
-        if (empty($descricao)){ #Verifica se os campos estão preenchidos
+        if (empty($nome)){ #Verifica se os campos estão preenchidos
             setcookie('msg',"Dados em branco!"); #Se não tiver, armazena mensagem para mostrar.
             } else {
                     $descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
-                    $perfil->__set('descricao', $descricao); #Pega o que foi digitado e muda seu valor no objeto
-                    $id = $_GET['id']; #Pega o ID para localizar no Banco de dados
-                    if ($perfil->atualizar($id)){ #Aqui faz o insert e seta um cookie para mostrar depois, dependendo da situação (se deu certo ou não)
+                    
+                    $this->componentes->__set('nome', $nome);
+                    $this->componentes->__set('cargahoraria', $cargaHoraria);
+            
+                    if ($this->componentes->atualizar($id)){ #Aqui faz o insert e seta um cookie para mostrar depois, dependendo da situação (se deu certo ou não)
                         setcookie('msg','Dados atualizados!'); # Deu bom
                     } else {
                         setcookie('msg','Ocorreu algum erro..'); # Deu ruim
                     }
 
             }
-        redirect('ComponenteCurricular/editar' . $id);
+        redirect('ComponenteCurricular/editar/' . $id);
     }
 }
 

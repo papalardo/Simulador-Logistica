@@ -13,18 +13,6 @@
                         <center><?php if (isset($_COOKIE['msg'])){ echo $_COOKIE['msg']; } setcookie('msg', NULL, time()-1) ?></center>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="descricao" class="control-label col-sm-4">Descricao</label>
-                    <div class="col-sm-8">
-                        <?php 
-                        echo gerar_dropdown('ciclo_simulador_model','id_csm', 'desc_csm', 'csm')
-                        ?>
-                        <center><?php if (isset($_COOKIE['msg'])){ echo $_COOKIE['msg']; } setcookie('msg', NULL, time()-1) ?></center>
-                    </div>
-                </div>
-                
-                
-                
-                
+               
                 <button type="submit" name="acao" value="novo" class="btn btn-default"> Cadastrar </button>
             </form>

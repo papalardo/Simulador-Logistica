@@ -83,9 +83,9 @@ body {
 
 </div>
 
-                    <button type="submit" class="btn btn-primary col-md-4 col-md-offset-1">Login</button>
+                    <button type="submit" class="btn btn-primary col-md-6 col-md-offset-1">Login</button>
                     
-                    <a href="<?= base_url('login/admin')?>" class="btn btn-success col-md-offset-1">Logar Admin</a>
+                  <!--  <a href="<?= base_url('login/admin')?>" class="btn btn-success col-md-offset-1">Logar Admin</a> -->
 
 <?php if (isset($_COOKIE['msg'])){
                     echo '<div class="alert alert-danger" role="alert"><center><strong>';

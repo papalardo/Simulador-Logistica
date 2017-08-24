@@ -41,7 +41,13 @@ if ( $uri->segment(3) == TRUE ){
     $function = 'index';
 }
 
-include 'controller/'.$class.'.php';
+$class_file = 'controller/'.$class.'.php';
+
+if ( file_exists( $class_file ) ){
+   include $class_file;
+} else {
+    echo 'Ops.. ocorreu um erro. <br>';
+}
 
 if ( class_exists($class) ){ # Verifica se a classe existe
     if ( method_exists($class, $function )) { # Verifica se o metodo existe

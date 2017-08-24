@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Editar Simmulador</div>
         <div class="panel-body">
-            <form action="atualizar/<?= $resultado->id_sml ?>/ <?= $descricao ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url('Simulador/atualizar/') . $resultado->id_sml ?>/ <?= $descricao ?>" method="post" class="form-horizontal">
                 <div class="form-group">
                     <label for="name" class="control-label col-sm-4">Descricao</label>
                     <div class="col-sm-8">

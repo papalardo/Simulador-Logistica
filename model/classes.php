@@ -192,12 +192,12 @@ class Simulador_model {
 	}
 	public function atualizar($id) {
 		$sql = "UPDATE $this->table SET  nome_sml = :nome,
-			                             descricao_sml = :descricao,
+			                             descricao_sml = :descricao
                                         WHERE $this->id = :id";
 		$stmt = DB::prepare ( $sql );
 		$stmt->bindParam ( ':nome', $this->__get('nome'));
 		$stmt->bindParam ( ':descricao', $this->__get('descricao'));
-		
+		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
 		return $stmt->execute ();
 	}
     /*
@@ -256,12 +256,13 @@ class Atividade_model
 	}
 	
 	public function adicionar() {
-		$sql = "INSERT INTO $this->table ( nome_asm, tempo_asm, pontuacao_asm, imagem_asm) VALUES ( ?, ?, ?, ?)";
+		$sql = "INSERT INTO $this->table ( nome_asm, tempo_asm, pontuacao_asm, imagem_asm, TB_CICL_SIMU_id_csm) VALUES ( ?, ?, ?, ?, ?)";
 		$stmt = DB::prepare ( $sql );
 		$stmt->bindParam ( 1, $this->__get('nome_asm'));
 		$stmt->bindParam ( 2, $this->__get('tempo_asm'));
 		$stmt->bindParam ( 3, $this->__get('pontuacao_asm'));
 		$stmt->bindParam ( 4, $this->__get('imagem_asm'));
+		$stmt->bindParam ( 5, $this->__get('id_csm'));
 		return $stmt->execute();
 	}
     
@@ -346,17 +347,17 @@ class ComponenteCurricular_model {
                 $sql = "INSERT INTO $this->table (nome_ccr, cargaHoraria_ccr) VALUES (:nome, :cargaHoraria)";
                 $stmt = DB::prepare ($sql);
                 $stmt->bindParam (':nome', $this->__get('nome'));
-                $stmt->bindParam (':cargaHoraria', $this->__get('cargaHoraria'));
+                $stmt->bindParam (':cargaHoraria', $this->__get('cargahoraria'));
                 return $stmt->execute();
         }
 
     public function atualizar($id){
-                $sql  = "UPDATE $this->table SET nome_ccr = :nome 
-                                                 cargaHoraria_ccr = :cargaHoraria 
-                                                 WHERE $this->id = :id";
+                $sql  = "UPDATE $this->table SET nome_ccr = :nome,
+                                                 cargaHoraria_ccr = :cargaHoraria
+                                                 WHERE $this->id = :id ";
                 $stmt = DB::prepare($sql);
                 $stmt->bindParam (':nome', $this->__get('nome'));
-                $stmt->bindParam (':cargaHoraria', $this->__get('cargaHoraria'));
+                $stmt->bindParam (':cargaHoraria', $this->__get('cargahoraria'));
                 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
                 return $stmt->execute();
 		}
@@ -546,111 +547,70 @@ class Curso_model {
 // Classe Item
 // Autor:
 
-class Item_model
-{
+class Item_model {
 	
-	private $pdo;
-
+    private $table = 'tb_iten_atv_sml';
+    private $id = 'id_ias';
 		
-    private $id_ias;
     private $nome_ias;
-    private $seguencia_ias;
+    private $sequencia_ias;
+    private $id_asm;
     
-    
-    protected $table = "tb_iten_atv_sml"; 
-    
-    
-	public function __set($atrib, $value) {
-        $this->$atrib = $value;
-    }
-    
-    public function __get($atrib) {
-        return $this->$atrib ;
-    }
-
-	public function listarTodos()
-	{
-		try
-		{
-			$sql = "SELECT * FROM " . $this->table;
-            $stm = DB::prepare($sql);
-			$stm->execute();
-			return $stm->fetchAll(PDO::FETCH_OBJ);
-		}
-		catch(Exception $e)
-		{
-			die($e->getMessage());
-		}
+    public function __set($atrib, $value) {
+		$this->$atrib = $value;
 	}
-
-	public function Obtener($id_ias)
-	{
-		try
-		{
-			$stm = $this->pdo->prepare("SELECT * FROM tbl_item WHERE id_ias = ?");
-			$stm->execute(array($id_ias));
-			return $stm->fetch(PDO::FETCH_OBJ);
-		} catch (Exception $e)
-		{
-			die($e->getMessage());
-		}
+	public function __get($atrib) {
+		return $this->$atrib;
 	}
-
-	public function Eliminar($id_ias)
-	{
-		try
-		{
-			$stm = $this->pdo
-			            ->prepare("DELETE FROM tbl_item WHERE id_ias = ?");
-
-			$stm->execute(array($id_ias));
-		} catch (Exception $e)
-		{
-			die($e->getMessage());
-		}
+	
+	public function adicionar() {
+		$sql = "INSERT INTO $this->table ( nome_ias, sequencia_ias, TB_ATIV_SIMU_id_asm ) VALUES ( ?, ?, ? )";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( 1, $this->__get('nome_asm'));
+		$stmt->bindParam ( 2, $this->__get('sequencia_ias'));
+		$stmt->bindParam ( 3, $this->__get('id_asm'));
+		return $stmt->execute();
 	}
-
-	public function Atualizar($data)
-	{
-		try
-		{
-			$sql = "UPDATE tbl_item SET
-						nome_ias          = ?,
-						seguencia_ias        = ?
-				    WHERE id_ias = ?";
-			$this->pdo->prepare($sql)
-			     ->execute(
-				    array(
-                        $data->nome_ias,
-                        $data->seguencia_ias,
-                        $data->id_ias
-					)
-				);
-		} catch (Exception $e)
-		{
-			die($e->getMessage());
-		}
+    
+	public function atualizar( $id ) {
+		$sql = "UPDATE $this->table SET  nome_ias = :nome_ias,
+			                             sequencia_ias = :sequencia_ias,
+                                         TB_ATIV_SIMU_id_asm = :id_asm
+                                        WHERE $this->id = :id";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':nome_ias', $this->__get('nome_ias'));
+		$stmt->bindParam ( ':sequencia_ias', $this->__get('sequencia_ias'));
+		$stmt->bindParam ( ':id_asm', $this->__get('id_asm'));
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		return $stmt->execute ();
 	}
-
-	public function Registrar(item $data)
-	{
-		try
-		{
-			$sql = "INSERT INTO tbl_item (id_ias,nome_ias,seguencia_ias)
-		        VALUES (?, ?, ?)";
-
-			$this->pdo->prepare($sql)
-		     ->execute(
-				array(
-                    $data->id_ias,
-                    $data->nome_ias,
-                    $data->seguencia_ias
-                )
-			);
-		} catch (Exception $e)
-		{
-			die($e->getMessage());
-		}
+    /*
+    Metodo procurar($id) é utilizado para usar o ID, neste caso, procurar na coluna $this->id
+    */
+    
+    
+	public function procurar($id) {
+		$sql = "SELECT * FROM $this->table WHERE $this->id = :id";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
+		$stmt->execute();
+        return $stmt->fetch();
+	}
+    /*
+    Metodo procurarEm( $coluna, $dado ) e utilizado para escolher a coluna ao qual deseja procurar o dado.
+    */
+   
+	public function listarTodos() {
+		$sql = "SELECT * FROM $this->table  INNER JOIN tb_ativ_simu ON ( $this->table .TB_ATIV_SIMU_id_asm = tb_ativ_simu.id_asm)";
+		$stmt = DB::prepare ( $sql );
+		$stmt->execute ();
+		return $stmt->fetchAll ();
+	}
+	public function deletar($id) {
+		$sql = "DELETE FROM $this->table WHERE $this->id = :id";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
+		return $stmt->execute ();
 	}
 }
 
@@ -663,11 +623,11 @@ class Perfil_model {
 		private $descricao;
 
 		public function __set($atrib, $value){
-			$this->atrib = $value;
+			$this->$atrib = $value;
 		}
 
 		public function __get($atrib){
-			return $this->atrib;
+			return $this->$atrib;
 		}
 
 		/*public function __construct(){
@@ -717,10 +677,10 @@ class Perfil_model {
 	}
 
 
-class CicloSimulador_model {
+class CicloSimulador_Model {
 
-		protected $table = 'tb_cicl_simu';
-		protected $id = 'id_csm';
+		private $table = 'tb_cicl_simu';
+		private $id = 'id_csm';
     
         private $descricao_csm;
         private $imagem_csm;
@@ -735,20 +695,29 @@ class CicloSimulador_model {
 		}
     
 		public function __set($atrib, $value){
-			$this->atrib = $value;
+			$this->$atrib = $value;
 		}
 
 		public function __get($atrib){
-			return $this->atrib;
+			return $this->$atrib;
 		}
+    
+        public function setDescricao($descricao_csm){
+            $this->descricao_csm = $descricao_csm;
+        }
+    
+        public function getDescricao(){
+            return $this->descricao_csm;
+        }
 
 		public function adicionar() {
-            $sql = "INSERT INTO $this->table ( descricao_csm, imagem_csm, TB_COMP_CURC_id_ccr, TB_SIMULADOR_id_sml) VALUES ( ?,?,?,? )";
+            $sql = "INSERT INTO $this->table ( descricao_csm, imagem_csm, TB_COMP_CURC_id_ccr, TB_SIMULADOR_id_sml) 
+                                      VALUES ( :descricao_csm, :imagem_csm , :id_ccr , :id_sml )";
             $stmt = DB::prepare ($sql);
-            $stmt->bindParam( 1 , $this->__get('descricao_csm'));
-            $stmt->bindParam( 2 , $this->__get('imagem_csm'));
-            $stmt->bindParam( 3 , $this->__get('id_ccr'));
-            $stmt->bindParam( 4 , $this->__get('id_sml'));
+            $stmt->bindParam( ':descricao_csm' , $this->__get('descricao_csm'));
+            $stmt->bindParam( ':imagem_csm' , $this->__get('imagem_csm'));
+            $stmt->bindParam( ':id_ccr' , $this->__get('id_ccr'));
+            $stmt->bindParam( ':id_sml' , $this->__get('id_sml'));
             return $stmt->execute();
         }
 
@@ -769,7 +738,9 @@ class CicloSimulador_model {
 		}
 
 		public function listarTodos(){
-			$sql  = "SELECT * FROM $this->table";
+			$sql  = "SELECT * FROM $this->table
+                    INNER JOIN tb_comp_curc ON ( $this->table .TB_COMP_CURC_id_ccr = tb_comp_curc.id_ccr)
+                    INNER JOIN tb_simulador ON ( $this->table .TB_SIMULADOR_id_sml = tb_simulador.id_sml)";
 			$stmt = DB::prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll();

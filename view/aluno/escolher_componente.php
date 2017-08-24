@@ -15,6 +15,17 @@
     <!-- Custom Styles-->
     <!-- Google Fonts-->
     <link href="<?= base_url('assets/fonts/css.css?family=Open+Sans')?>" rel='stylesheet' type='text/css' />
+     <style>
+    body {
+    margin: 0;
+    margin-right: 0 auto;
+    margin-left: 0 auto;
+    background-color: #73BCDF;
+   /* background-image:url("img/background-login.jpg");*/
+    background-repeat: no-repeat;
+    background-size: 80% 100%;
+}
+    </style>
 </head>
 
 <body>

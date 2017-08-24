@@ -5,6 +5,9 @@
     <thead>
         <th>#</th>
         <th>Descrição</th>
+        <th>Imagem</th>
+        <th>Nome Comp Curricular</th>
+        <th>Nome Simulador</th>
         <th>Ação</th>
     </thead>
     <tbody>
@@ -20,9 +23,15 @@
             <td>
                 <?= $dados->imagem_csm ?>
             </td>
+            <td>
+                <?= $dados->nome_ccr ?>
+            </td>
+            <td>
+                <?= $dados->nome_sml ?>
+            </td>
             
-            <td><a href="<?= base_url('perfil/deletar/'.$dados->id_csm) ?>">Deletar</a>
-                <a href="<?= base_url('perfil/editar/'.$dados->id_csm) ?>">Editar</a></td>
+            <td><a href="<?= base_url('cicloSimulador/deletar/'.$dados->id_csm) ?>">Deletar</a>
+                <a href="<?= base_url('cicloSimulador/editar/'.$dados->id_csm) ?>">Editar</a></td>
         </tr>
         <?php endforeach; ?>
     </tbody>

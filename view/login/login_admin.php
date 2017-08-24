@@ -42,9 +42,9 @@
                 }
                     DestroyCookie('msg'); #Funcao para destruir um cookie
                 ?>
-                    <button type="submit" class="btn btn-primary col-md-4 col-md-offset-1">Logar</button>
+                    <button type="submit" class="btn btn-primary col-md-6 col-md-offset-3">Logar</button>
                     
-                    <a href="<?= base_url('login')?>" class="btn btn-success col-md-offset-1">Logar Aluno</a>
+                 <!--   <a href="<?= base_url('login')?>" class="btn btn-success col-md-offset-1">Logar Aluno</a> -->
                 </form>
         </div>
     </div>

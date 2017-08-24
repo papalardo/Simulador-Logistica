@@ -20,6 +20,12 @@ class Atividade {
         echo $this->template->template('templates/template.tpl')->view('view/atividade/listar.php')->data( $data )->render();
     }
     
+    public function editar(){
+        $id = $this->uri->segment(4);
+        $data = array('resultado' => $this->atividade->procurar($id));
+        echo $this->template->template('templates/template.tpl')->view('view/atividade/editar.php')->data( $data )->render();
+    }
+    
     public function deletar(){
         $id = $this->uri->segment(4);
         if ($this->atividade->deletar($id)){ 
@@ -31,9 +37,10 @@ class Atividade {
     public function novo(){
         
         $nome_asm = isset($_POST['nome_asm']) ? $_POST['nome_asm'] : ''; #Resgata variáveis do formulário
-        $nome_asm = isset($_POST['tempo_asm']) ? $_POST['tempo_asm'] : ''; #Resgata variáveis do formulário
+        $tempo_asm = isset($_POST['tempo_asm']) ? $_POST['tempo_asm'] : ''; #Resgata variáveis do formulário
         $pontuacao_asm = isset($_POST['pontuacao_asm']) ? $_POST['pontuacao_asm'] : ''; #Resgata variáveis do formulário
         $imagem_asm = isset($_POST['imagem_asm']) ? $_POST['imagem_asm'] : ''; #Resgata variáveis do formulário
+        $id_csm = isset($_POST['id_csm']) ? $_POST['id_csm'] : ''; #Resgata variáveis do formulário
         
         
         $this->atividade->__set('nome_asm', $nome_asm);
@@ -44,11 +51,10 @@ class Atividade {
         
         $this->atividade->adicionar();
 
-        redirect('atividade');
+        redirect('Atividade');
     }
 
-    public function editar(){
-        $ativ = new atividade();
+    public function atualizar(){
 
         $ativ->id_asm = $_REQUEST['id_asm'];
         $ativ->nome_asm = $_REQUEST['nome_asm'];

@@ -25,7 +25,7 @@ class Simulador {
     
     public function editar(){
         $id = $this->uri->segment(4);
-        $data = array('resultado' => $simulador->procurar($id));
+        $data = array('resultado' => $this->simulador->procurar($id));
         echo $this->template->template('templates/template.tpl')->view('view/simulador/editar.php')->data( $data )->render();
     }
     
@@ -57,27 +57,31 @@ class Simulador {
                     }
 
             }
-        redirect('simulador');
+        redirect('Simulador');
     }
     
     public function atualizar(){
-        $simulador = new Simulador_model(); #Cria novo objeto
+        $nome = isset($_POST['nome']) ? $_POST['nome'] : ''; #Resgata variáveis do formulário
         $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : ''; #Resgata variáveis do formulário
-        $id = $_GET['id'];
+        
+        $id = $this->uri->segment(4);
+        
         if (empty($descricao)){ #Verifica se os campos estão preenchidos
             setcookie('msg',"Dados em branco!"); #Se não tiver, armazena mensagem para mostrar.
             } else {
-                    $descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
-                    $perfil->__set('descricao', $descricao); #Pega o que foi digitado e muda seu valor no objeto
-                    $id = $_GET['id']; #Pega o ID para localizar no Banco de dados
-                    if ($perfil->atualizar($id)){ #Aqui faz o insert e seta um cookie para mostrar depois, dependendo da situação (se deu certo ou não)
+                    #$descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
+                    
+                    $this->simulador->__set('nome', $nome);
+                    $this->simulador->__set('descricao', $descricao);
+            
+                    if ($this->simulador->atualizar($id)){ #Aqui faz o insert e seta um cookie para mostrar depois, dependendo da situação (se deu certo ou não)
                         setcookie('msg','Dados atualizados!'); # Deu bom
                     } else {
                         setcookie('msg','Ocorreu algum erro..'); # Deu ruim
                     }
 
             }
-        redirect('?pag=perfil&acao=editar&id=' . $_GET['id']);
+        redirect('Simulador/editar/' . $id);
     }
 }
 

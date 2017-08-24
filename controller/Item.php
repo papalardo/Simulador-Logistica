@@ -14,49 +14,42 @@ class Item {
     }
     
     //Chamada para ver item de-edit
-    public function Crud(){
-        $it = new item_model();
-
-        //obtem os dados 
-        if(isset($_REQUEST['id_ias'])){
-            $it = $this->model->Obtener($_REQUEST['id_ias']);
-        }
-        
-        $tmpl = new Template('templates/template.tpl','view/item/editar.php', array('titulo' => 'Painel usuario', 'it' => $it->Listar()));
-        echo $tmpl->render();
+    public function editar(){
+        $id = $this->uri->segment(4);
+        $data = array('resultado' => $this->item->procurar($id));
+        echo $this->template->template('templates/template.tpl')->view('view/item/editar.php')->data( $data )->render();
+    
   }
 
    
     public function listar(){
-        $it = new item_model();        
-        $tmpl = new Template('templates/template.tpl','view/item/listar.php', array('titulo' => 'Painel usuario', 'it' => $it->listarTodos()));
-        echo $tmpl->render();
+        $data = array( 'listar' => $this->item->listarTodos());
+        echo $this->template->template('templates/template.tpl')->view('view/item/listar.php')->data( $data )->render();
     }
 
-    public function Guardar(){
-        $it = new item();
-
-        $it->id_ias = $_REQUEST['id_ias'];
-        $it->nome_ias = $_REQUEST['nome_ias'];
-        $it->seguencia_ias = $_REQUEST['seguencia_ias'];
+    public function novo(){
+        $this->item->__set('nome_ias', $_POST['nome_ias']);
+        $this->item->__set('sequencia_ias', $_POST['sequencia_ias']);
+        $this->item->__set('id_asm', $_POST['id_asm']);
 
         
-        $this->model->Registrar($it);
+        $this->item->adicionar();
 
-        header('Location: index.php');
+        redirect('Item/listar');
     }
 
-    public function Editar(){
-        $it = new item();
-
-        $it->id_ias = $_REQUEST['id_ias'];
-        $it->nome_ias = $_REQUEST['nome_ias'];
-        $it->seguencia_ias = $_REQUEST['seguencia_ias'];
+    public function atualizar(){
+        
+        
+        $id = $this->uri->segment(4);
+        $this->item->__set('nome_ias', $_POST['nome_ias']);
+        $this->item->__set('sequencia_ias', $_POST['sequencia_ias']);
+        $this->item->__set('id_asm', $_POST['id_asm']);
        
 
-        $this->model->Atualizar($it);
+        $this->item->atualizar($id);
 
-        header('Location: index.php');
+        redirect('Item/listar');
     }
 
     public function Eliminar(){

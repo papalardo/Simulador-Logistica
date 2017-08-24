@@ -28,10 +28,10 @@ class CicloSimulador {
     
     public function deletar(){
         $id = $this->uri->segment(4);
-        if ( $this->simulador->deletar($id) ){ 
+        if ( $this->cicloSimulador->deletar($id) ){ 
             setcookie('msg',"Deletado!"); 
         }
-        redirect('simulador/listar');
+        redirect('cicloSimulador/listar');
     }
     
     public function adicionar(){
@@ -46,7 +46,6 @@ class CicloSimulador {
             } else {
                     #$nome  = htmlspecialchars(strip_tags($_POST['nome'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
                     
-                    
                     $this->cicloSimulador->__set('descricao_csm', $descricao);
                     $this->cicloSimulador->__set('imagem_csm', $imagem);
                     $this->cicloSimulador->__set('id_ccr', $id_ccr);
@@ -57,8 +56,6 @@ class CicloSimulador {
                     } else {
                         setcookie('msg','Ocorreu algum erro..'); #Deu ruim
                     }
-                    
-
             }
         redirect('cicloSimulador/listar');
     }
