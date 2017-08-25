@@ -31,6 +31,14 @@ class Geral_Model {
 		$stmt->execute();
         return $stmt->fetchAll();
     }
+    
+    public function procurarRow($coluna, $dado){
+        $sql = "SELECT * FROM $this->table $this->innerjoin WHERE $coluna = :dado";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':dado', $dado );
+		$stmt->execute();
+        return $stmt->fetch();
+    }
 }
 
 
@@ -756,29 +764,78 @@ class CicloSimulador_Model {
 
 
 
+/*
 
-// Classe Realizar Ciclo
-// Autor
+Classe Realizar Ciclo
+@Autor: Pablo Papalardo
+
+*/ 
+
 class RealizarCiclo {
-		private $idRcc;
-		private $pontuacaoAlcancadaRcc;
-
-		public function getIdRcc(){
-			return $this->idRcc;
+		
+        private $table = 'tb_relz_cicl';
+		private $id_rcc = 'id_csm';
+    
+        private $pontuacaoAlcancada_rcc;
+        private $id_csm;
+        private $id_usu;
+    
+		public function __construct(){
+			$this->pontuacaoAlcancada_rcc = 0;
+			$this->id_csm = 0;
+			$this->id_usu = 0;
+		}
+    
+		public function __set($atrib, $value){
+			$this->$atrib = $value;
 		}
 
-		public function getPontuacaoAlcancadaRcc(){
-			return $this->pontuacaoAlcancadaRcc;
+		public function __get($atrib){
+			return $this->$atrib;
+		}
+    
+		public function adicionar() {
+            $sql = "INSERT INTO $this->table ( pontuacaoAlcancada_rcc, TB_CICL_SIMU_id_csm, TB_USUARIO_id_usu) VALUES ( ?, ? , ? )";
+            $stmt = DB::prepare ($sql);
+            $stmt->bindParam( 1 , $this->__get('pontuacao'));
+            $stmt->bindParam( 2 , $this->__get('id_csm'));
+            $stmt->bindParam( 3 , $this->__get('id_usu'));
+            return $stmt->execute();
+        }
+
+		public function atualizar($id){
+			$sql  = "UPDATE $this->table SET desc_per = :descricao WHERE $this->id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':descricao', $this->__get($descricao));
+			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+			return $stmt->execute();
 		}
 
-
-		public function setIdRcc(){
-			return $this->idRcc;
+		public function procurar($id){
+			$sql  = "SELECT * FROM $this->table WHERE $this->id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetch();
 		}
 
-		public function setPontuacaoAlcancadaRcc(){
-			return $this->pontuacaoAlcancadaRcc;
+		public function listarTodos(){
+			$sql  = "SELECT * FROM $this->table
+                    INNER JOIN tb_comp_curc ON ( $this->table .TB_COMP_CURC_id_ccr = tb_comp_curc.id_ccr)
+                    INNER JOIN tb_simulador ON ( $this->table .TB_SIMULADOR_id_sml = tb_simulador.id_sml)";
+			$stmt = DB::prepare($sql);
+			$stmt->execute();
+			return $stmt->fetchAll();
 		}
+
+		public function deletar($id){
+			$sql  = "DELETE FROM $this->table WHERE $this->id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+			return $stmt->execute();
+		}
+    
+    
 }
 
 
