@@ -6,6 +6,7 @@ Includes necessários
 
 */
 session_start(); #Abrir session
+ob_start();
 
 require_once 'includes/functions.php';
 require_once 'config/DB.php';
@@ -30,9 +31,9 @@ $uri = new Uri();
 
 $partes_url = explode('/', $_SERVER['REQUEST_URI'] );
 if ( $uri->segment(2) == TRUE ){
-    $class = $uri->segment(2);
+    $class = ucfirst($uri->segment(2));
 } else {
-    $class = 'login';
+    $class = 'Login';
 }
 
 if ( $uri->segment(3) == TRUE ){

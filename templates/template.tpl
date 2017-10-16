@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulador</title>
 
@@ -92,6 +92,18 @@
                             </li>
                         </ul>
                     </li>
+
+                     <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Itens<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?= base_url('item')?>">Novo</a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('item/listar')?>">Lista</a>
+                            </li>
+                        </ul>
+                    </li>
                     
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Curso <span class="fa arrow"></span></a>
@@ -138,6 +150,19 @@
                             </li>
                             <li>
                                 <a href="<?= base_url('ComponenteCurricular/listar')?>">Lista</a>
+                            </li>
+                        </ul>
+                    </li>
+					
+					
+					<li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Competências Norteadoras <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?= base_url('competenciaNorteadora')?>">Novo</a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('competenciaNorteadora/listar')?>">Lista</a>
                             </li>
                         </ul>
                     </li>

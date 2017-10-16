@@ -6,7 +6,7 @@ require_once base_url('model/classes.php');
 class CompetenciaNorteadora {
 
     public function __construct(){
-        $this->comp_nort = new CompetenciaNorteadora_Model();
+        $this->competenciaNorteadora = new CompetenciaNorteadora_Model();
         $this->uri = new Uri();
         $this->template = new Template();
     }
@@ -17,22 +17,22 @@ class CompetenciaNorteadora {
     
     public function listar(){
         $data = array('titulo' => 'Painel usuario',
-                      'listar' => $this->comp_nort->listarTodos());
+                      'listar' => $this->competenciaNorteadora->listarTodos());
         echo $this->template->template('templates/template.tpl')->view('view/competenciaNorteadora/listar.php')->data( $data )->render();
     }
     
     public function editar(){
         $id = $this->uri->segment(4);
-        $data = array('resultado' => $this->comp_nort->procurar($id));
+        $data = array('resultado' => $this->competenciaNorteadora->procurar($id));
         echo $this->template->template('templates/template.tpl')->view('view/competenciaNorteadora/editar.php')->data( $data )->render();
     }
     
     public function deletar(){
         $id = $this->uri->segment(4);
-        if ( $this->comp_nort->deletar($id) ){ 
+        if ( $this->competenciaNorteadora->deletar($id) ){ 
             setcookie('msg',"Deletado!"); 
         }
-        redirect('simulador/listar');
+        redirect('competenciaNorteadora/listar');
     }
     
     public function adicionar(){
@@ -45,17 +45,17 @@ class CompetenciaNorteadora {
             } else {
                     #$nome  = htmlspecialchars(strip_tags($_POST['nome'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
                     
-                    $this->comp_nort->__set('nome_cnr', $nome);
-                    $this->comp_nort->__set('id_sml', $id_sml);
+                    $this->competenciaNorteadora->__set('nome_cnr', $nome);
+                    $this->competenciaNorteadora->__set('id_sml', $id_sml);
 
-                    if ($this->comp_nort->adicionar()){ #Aqui faz o insert e seta um cookie para mostrar depois dependendo da situação (se deu certo ou não)
-                        setcookie('msg','Novo curso cadastrado!'); #Deu bom
+                    if ($this->competenciaNorteadora->adicionar()){ #Aqui faz o insert e seta um cookie para mostrar depois dependendo da situação (se deu certo ou não)
+                        setcookie('msg','Dados cadastrado com sucesso!'); #Deu bom
                     } else {
                         setcookie('msg','Ocorreu algum erro..'); #Deu ruim
                     }
 
             }
-        redirect('competencianorteadora');
+        redirect('competenciaNorteadora');
     }
     
     public function atualizar(){
@@ -68,17 +68,17 @@ class CompetenciaNorteadora {
             } else {
                     $descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
                    
-                    $this->comp_nort->__set('nome_cnr', $nome);
-                    $this->comp_nort->__set('id_sml', $id_sml);
+                    $this->competenciaNorteadora->__set('nome_cnr', $nome);
+                    $this->competenciaNorteadora->__set('id_sml', $id_sml);
                     
-                    if ($comp_nort->atualizar($id)){ #Aqui faz o insert e seta um cookie para mostrar depois, dependendo da situação (se deu certo ou não)
+                    if ($this->competenciaNorteadora->atualizar($id)){ #Aqui faz o insert e seta um cookie para mostrar depois, dependendo da situação (se deu certo ou não)
                         setcookie('msg','Dados atualizados!'); # Deu bom
                     } else {
                         setcookie('msg','Ocorreu algum erro..'); # Deu ruim
                     }
 
             }
-        redirect('competencianorteadora/editar/ ' . $id);
+        redirect('competenciaNorteadora/editar/ ' . $id);
     }
 }
 

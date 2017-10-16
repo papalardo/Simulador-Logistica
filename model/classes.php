@@ -574,7 +574,7 @@ class Item_model {
 	public function adicionar() {
 		$sql = "INSERT INTO $this->table ( nome_ias, sequencia_ias, TB_ATIV_SIMU_id_asm ) VALUES ( ?, ?, ? )";
 		$stmt = DB::prepare ( $sql );
-		$stmt->bindParam ( 1, $this->__get('nome_asm'));
+		$stmt->bindParam ( 1, $this->__get('nome_ias'));
 		$stmt->bindParam ( 2, $this->__get('sequencia_ias'));
 		$stmt->bindParam ( 3, $this->__get('id_asm'));
 		return $stmt->execute();
@@ -619,6 +619,14 @@ class Item_model {
 		$stmt = DB::prepare ( $sql );
 		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
 		return $stmt->execute ();
+	}
+    
+    public function listarItensByAtividade( $atividade ) {
+		$sql = "SELECT * FROM $this->table WHERE TB_ATIV_SIMU_id_asm = :atividade";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':atividade', $atividade, PDO::PARAM_INT );
+		$stmt->execute();
+		return $stmt->fetchAll ();
 	}
 }
 

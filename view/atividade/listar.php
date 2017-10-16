@@ -15,8 +15,10 @@
             <td><?php echo $r->pontuacao_asm; ?></td>
             <td><?php echo $r->imagem_asm; ?></td>
             <td>
+                <div class="btn-group">
                 <a class="btn btn-warning" href="<?= base_url('Atividade/editar/' . $r->id_asm) ?>"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
                 <a onclick="javascript:return confirm('Tem certeza que quer apagar este registro?');" class="btn btn-danger" href="<?= base_url('Atividade/deletar/' . $r->id_asm) ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Deletar</a>
+                </div>
             </td>
         </tr>
     <?php endforeach; ?>

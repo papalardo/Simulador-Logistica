@@ -11,13 +11,20 @@ class Aluno {
     }
     
     public function index(){
+        
+        
+        $data = array( 'listar' => $this->classe->table('tb_comp_curc')->listarTodos() );
+        echo $this->template->template('view/aluno/escolher_componente.php')->data( $data )->render();
+    }
+    
+    public function dashboard(){
         $data = array( 'listar' => $this->classe->table('tb_comp_curc')->listarTodos());
         echo $this->template->template('view/aluno/escolher_componente.php')->data( $data )->render();
     }
     
     
     public function exComp(){
-        echo $this->template->template('view/aluno/componente_arrastar.php')->render();
+        echo $this->template->template('view/aluno/componente_arrastar.php')->data( )->render();
     }
     
     public function passo1(){

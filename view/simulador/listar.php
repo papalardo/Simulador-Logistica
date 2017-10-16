@@ -19,8 +19,10 @@
             <td>
                 <?= $dados->descricao_sml ?>
             </td>
-            <td><a href="<?= base_url('simulador/deletar/'.$dados->id_sml) ?>">Deletar</a>
-                <a href="<?= base_url('simulador/editar/'.$dados->id_sml) ?>">Editar</a></td>
+            <td>
+                <a class="btn btn-warning" href="<?= base_url('simulador/editar/'.$dados->id_sml) ?>"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
+                <a onclick="javascript:return confirm('Tem certeza que quer apagar este registro?');" class="btn btn-danger" href="<?= base_url('simulador/deletar/'.$dados->id_sml) ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Deletar</a>
+          </td>
         </tr>
         <?php endforeach; ?>
     </tbody>

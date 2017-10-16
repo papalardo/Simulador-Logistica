@@ -2,16 +2,16 @@
 
     <div class="form-group">
         <label>Nome</label>
-        <input type="text" name="nome_ias" class="form-control" placeholder="" data-validacion-tipo="requerido|min:100" />
+        <input type="text" name="nome_ias" class="form-control" placeholder="" title="nome" required="required" maxlength="45" />
     </div>
 
     <div class="form-group">
-        <label>Seguencia</label>
-        <input type="number" name="seguencia_ias" class="form-control" data-validacion-tipo="requerido|min:100" />
+        <label>Sequencia</label>
+        <input type="number" name="sequencia_ias" class="form-control" maxlength="11" />
     </div>
     
     <div class="form-group">
-        <label>Atiidade Simulador</label>
+        <label>Atividade Simulador</label>
    <?php 
     echo gerar_dropdown('tb_ativ_simu','id_asm', 'nome_asm', 'id_asm')
     ?>

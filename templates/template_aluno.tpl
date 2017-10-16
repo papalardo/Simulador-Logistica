@@ -143,9 +143,9 @@ text-align: center;
 <body onload="init()">
 
     <div class="col-md-4 col-md-offset-1">
-        <div class="card" style="height:170px">
+        <div class="card" style="height:180px">
             <br>
-            <img src="<?= base_url('assets/img/perfil.png')?>" class="col-md-4"> Ana Carolina <br> CEP: Gama <br> Tecnico em Logistica <br>
+            <img src="<?= base_url('assets/img/perfil.png') ?>" style="width:150px" class="col-md-4"><?= $_SESSION['nome_usu'] ?> <br> CEP: Gama <br> Tecnico em Logistica <br>
             <a href="#"> Perfil </a><br>
             <a href="<?= base_url('login/logout') ?>"> Deslogar </a>
         

@@ -26,7 +26,7 @@ class Curso {
     }
     
     public function deletar(){
-        $id = $this0>uri->segment(4);
+        $id = $this->uri->segment(4);
         if ( $this->curso->deletar($id) ){ 
             setcookie('msg',"Deletado!"); 
         }
